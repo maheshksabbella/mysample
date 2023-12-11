@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="b53bf1dc-3014-454e-a3b7-21372bb453f3" >
+		<file:connection workingDir="C:\workspace\output" />
+	</file:config>
+	<file:config name="File_Config1" doc:name="File Config" doc:id="3b23b198-230a-4622-85ac-44f3eca4b24b" >
+		<file:connection workingDir="C:\workspace" />
+	</file:config>
+	<flow name="newFlow" doc:id="e2789961-1673-4c4e-9c94-d3934fc25312" >
+		<file:listener doc:name="On New or Updated File" doc:id="15c6467b-2d25-43b6-a046-9b5ddc812a71" directory="input" moveToDirectory="output" renameTo="new.csv" config-ref="File_Config1">
+			<scheduling-strategy >
+				<fixed-frequency frequency="10" timeUnit="SECONDS" />
+			</scheduling-strategy>
+		</file:listener>
+		<set-payload value='#["start"]' doc:name="Set Payload" doc:id="ab9413e1-f985-42cd-957d-7ba0f003d79f" />
+	</flow>
+</mule>
